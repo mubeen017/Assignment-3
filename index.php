@@ -7,6 +7,63 @@
     if(isset($_POST['submit'])){
         
         $errors = [];
+        //name
+        if(empty($_POST['name'])){
+            $errors[] = "name cannot be empty";
+        }
+        else{
+            $name = trim($_POST['name']);
+        }
+        //email
+        if(empty($_POST['email'])){
+            $errors[] = "email cannot be empty";
+        }
+        else{
+            $email = trim($_POST['email']);
+        }
+        //username
+        if(empty($_POST['username'])){
+            $errors[] = "username cannot be empty";
+        }
+        else{
+            $username = trim($_POST['username']);
+        }
+        //phone
+        if(empty($_POST['phone'])){
+            $errors[] = "phone number cannot be empty";
+        }
+        else{
+            $phone = trim($_POST['phone']);
+        }
+        //address
+        if(empty($_POST['address'])){
+            $errors[] = "address cannot be empty";
+        }
+        else{
+            $address = trim($_POST['address']);
+        }
+        //permanent address
+        if(empty($_POST['paddress'])){
+            $errors[] = "permanent address cannot be empty";
+        }
+        else{
+            $paddress = trim($_POST['paddress']);
+        }
+        //cnic
+        if(empty($_POST['cnic'])){
+            $errors[] = "cnic cannot be empty";
+        }
+        else{
+            $cnic = trim($_POST['cnic']);
+        }
+        //dob
+        if(empty($_POST['dob'])){
+            $errors[] = "dob cannot be empty";
+        }
+        else{
+            $dob = trim($_POST['dob']);
+        }
+
         if(empty($errors)){
            $dbc = db_connect();
            $sql = "INSERT INTO users VALUES(NULL,'$name','$email','$username','$phone',
@@ -18,10 +75,16 @@
            else {
             echo "<div class='alert alert-danger'>Data cannot be Entered!</div>";
            }
+           db_close($dbc);
         }
         else{
-            $name = $_POST['name'];
+            foreach($errors as $error){
+                echo "<div class='alert alert-danger'>$error</div>";
+            }
         }
+    }
+    else{
+        echo "<div class='alert alert-danger'>Form is not submitted! </div>";
     }
 ?>
 <body>
@@ -35,7 +98,7 @@
             <div class="col-sm-6">
                 <form action="" method="post">
                 <div class="form-group">
-                    <label for="name">Fullname: </label>
+                    <label for="name">Full Name: </label>
                     <input type="text" name="name" id="name" class="form-control">
                 </div>
                 <div class="form-group">
