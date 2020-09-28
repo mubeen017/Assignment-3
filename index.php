@@ -2,7 +2,27 @@
     $pageTitle = "Assignment 3";
     require_once "includes/header.php";
     require_once "database/connection.php";
-    $dbc = db_connect;
+    $dbc = db_connect();
+
+    if(isset($_POST['submit'])){
+        
+        $errors = [];
+        if(empty($errors)){
+           $dbc = db_connect();
+           $sql = "INSERT INTO users VALUES(NULL,'$name','$email','$username','$phone',
+           '$address','$paddress','$cnic','$dob')";
+           $result = mysqli_query($dbc,$sql);
+           if($result){
+               echo "<div class='alert alert-success'>Data Entered Successfully!</div>";
+           }
+           else {
+            echo "<div class='alert alert-danger'>Data cannot be Entered!</div>";
+           }
+        }
+        else{
+            $name = $_POST['name'];
+        }
+    }
 ?>
 <body>
     <div class="container">
@@ -35,8 +55,8 @@
                     <input type="text" name="address" id="address" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="pAddress">Permanent Address: </label>
-                    <input type="text" name="pAddress" id="pAddress" class="form-control">
+                    <label for="paddress">Permanent Address: </label>
+                    <input type="text" name="paddress" id="paddress" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="cnic">CNIC: </label>
@@ -46,7 +66,7 @@
                     <label for="dob">Date of birth: </label>
                     <input type="date" name="dob" id="dob" class="form-control">
                 </div>
-                <input type="submit" value="Register" class="btn btn-success">
+                <input type="submit" name="submit" value="Register" class="btn btn-success">
                 </form>
             </div>
         </div>
